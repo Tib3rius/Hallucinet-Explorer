@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Hallucinet Explorer</title>
+  <link rel="stylesheet" href="chrome.css" />
+</head>
+<body>
+  <div id="tab-bar">
+    <div id="tabs"></div>
+    <button id="new-tab-btn" title="New Tab">+</button>
+  </div>
+  <div id="nav-bar">
+    <button id="back-btn" title="Back" disabled>&#9664;</button>
+    <button id="forward-btn" title="Forward" disabled>&#9654;</button>
+    <button id="refresh-btn" title="Refresh">&#8635;</button>
+    <button id="stop-btn" title="Stop loading" class="hidden">&#10005;</button>
+    <button id="reprompt-btn" title="Reprompt (fresh LLM request)">&#10227;</button>
+    <div id="url-container">
+      <input type="text" id="url-bar" placeholder="Enter a URL or llm://settings" spellcheck="false" />
+    </div>
+    <div id="llm-indicator" class="hidden" title="">
+      <div id="llm-spinner"></div>
+      <span id="llm-count"></span>
+    </div>
+  </div>
+  <div id="status-bar"><span id="status-text"></span></div>
+  <script src="chrome.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #1e1e2e;
+  color: #cdd6f4;
+  user-select: none;
+  -webkit-app-region: no-drag;
+}
+
+/* ── Tab Bar ── */
+
+#tab-bar {
+  display: flex;
+  align-items: center;
+  height: 38px;
+  background: #181825;
+  padding: 0 4px;
+  -webkit-app-region: drag;
+}
+
+#tabs {
+  display: flex;
+  flex: 1;
+  overflow-x: auto;
+  gap: 2px;
+  -webkit-app-region: no-drag;
+}
+
+#tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px 6px 12px;
+  background: #1e1e2e;
+  border-radius: 8px 8px 0 0;
+  font-size: 12px;
+  cursor: pointer;
+  max-width: 200px;
+  min-width: 80px;
+  transition: background 0.15s;
+  -webkit-app-region: no-drag;
+}
+
+.tab-title {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tab:hover {
+  background: #313244;
+}
+
+.tab.active {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-bottom: 2px solid #f38ba8;
+}
+
+.tab.loading .tab-title::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: 2px solid #f38ba8;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.tab-close {
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.4;
+  transition: opacity 0.15s, background 0.15s;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.tab:hover .tab-close {
+  opacity: 0.7;
+}
+
+.tab-close:hover {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#new-tab-btn {
+  background: none;
+  border: none;
+  color: #6c7086;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.15s;
+  -webkit-app-region: no-drag;
+}
+
+#new-tab-btn:hover {
+  background: #313244;
+  color: #cdd6f4;
+}
+
+/* ── Navigation Bar ── */
+
+#nav-bar {
+  display: flex;
+  align-items: center;
+  height: 42px;
+  background: #1e1e2e;
+  padding: 0 8px;
+  gap: 4px;
+  border-bottom: 1px solid #313244;
+}
+
+#nav-bar button {
+  background: none;
+  border: none;
+  color: #6c7086;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+#nav-bar button:hover:not(:disabled) {
+  background: #313244;
+  color: #cdd6f4;
+}
+
+#nav-bar button:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+#stop-btn {
+  color: #f38ba8;
+}
+
+#stop-btn:hover:not(:disabled) {
+  color: #eba0ac;
+}
+
+#stop-btn.hidden,
+#refresh-btn.hidden {
+  display: none;
+}
+
+#reprompt-btn {
+  color: #f38ba8;
+}
+
+#reprompt-btn:hover:not(:disabled) {
+  color: #eba0ac;
+}
+
+#url-container {
+  flex: 1;
+  position: relative;
+}
+
+#url-bar {
+  width: 100%;
+  padding: 6px 12px;
+  background: #313244;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  color: #cdd6f4;
+  font-size: 13px;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#url-bar:focus {
+  border-color: #f38ba8;
+  background: #1e1e2e;
+}
+
+/* ── LLM Activity Indicator ── */
+
+#llm-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(243, 139, 168, 0.12);
+  cursor: default;
+  flex-shrink: 0;
+}
+
+#llm-indicator.hidden {
+  display: none;
+}
+
+#llm-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #f38ba8;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+#llm-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f38ba8;
+  min-width: 8px;
+  text-align: center;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Tab Context Menu ── */
+
+.tab-context-menu {
+  position: fixed;
+  background: #313244;
+  border: 1px solid #45475a;
+  border-radius: 6px;
+  padding: 4px 0;
+  min-width: 140px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.tab-context-menu-item {
+  padding: 6px 16px;
+  font-size: 13px;
+  color: #cdd6f4;
+  cursor: pointer;
+  transition: background 0.1s;
+}
+
+.tab-context-menu-item:hover {
+  background: #45475a;
+}
+
+/* ── Status Bar ── */
+
+#status-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: #181825;
+  border-top: 1px solid #313244;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 100;
+}
+
+#status-bar.hidden {
+  display: none;
+}
+
+#status-text {
+  font-size: 11px;
+  color: #6c7086;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
