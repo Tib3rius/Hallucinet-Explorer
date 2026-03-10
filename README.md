@@ -89,7 +89,3 @@ Renderer Process (Chromium)
 ├── Browser Chrome UI    — address bar, tabs, navigation buttons
 └── WebContentsView      — one per tab, renders LLM-generated HTML
 ```
-
-## License
-
-MIT
